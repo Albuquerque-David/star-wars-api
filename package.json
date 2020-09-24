@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-dev": "nodemon ./src/index.js"
+    "start-dev": "nodemon ./src/index.js",
+    "seed:planets": "node ./src/seed/planets.js"
   },
   "author": "David Rodrigues Albuquerque",
   "license": "ISC",
@@ -15,7 +16,5 @@
     "mongoose": "^5.10.6",
     "nodemon": "^2.0.4"
   },
-  "devDependencies": {
-    "knex": "^0.21.5"
-  }
+  "devDependencies": {}
 }

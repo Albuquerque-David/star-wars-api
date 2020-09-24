@@ -32,7 +32,17 @@ module.exports = {
     
     async read(request, response)
     {
-        Planet.find({}).exec((error, result) => {
+        var filter = {}
+        var { name } = request.query
+
+        if(name != undefined)
+            filter = {'name': name}
+        
+        console.log(name)
+        console.log(filter)
+
+
+        Planet.find(filter).exec((error, result) => {
             if(error)
                 return console.log(error)
             return response.status(200).json({ result })
@@ -79,6 +89,9 @@ module.exports = {
         })
     },
 }
+
+
+
 
 async function getNextSequence(sequence_name) {
     let promise = new Promise((resolve, reject) => {

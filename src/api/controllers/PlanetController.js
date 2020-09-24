@@ -1,31 +1,28 @@
+const PlanetService = require('../services/PlanetService');
+
 module.exports = {
-    async createPlanet()
+    async createPlanet(request, response)
     {
-        
+        PlanetService.create(request, response)
     },
     
-    async readPlanet()
+    async readAllPlanets(request, response)
     {
-    
-    },
-    
-    async readPlanetByName(name)
-    {
-
+        PlanetService.read(request, response)
     },
 
-    async readPlanetById(id)
+    async readPlanetById(request, response)
     {
-    
+        PlanetService.readById(request, response)
     },
     
-    async updatePlanet()
+    async updatePlanet(request, response)
     {
-    
+        PlanetService.update(request, response)
     },
     
-    async deletePlanetById(id)
+    async deletePlanet(request, response)
     {
-        
+        PlanetService.delete(request, response)
     },
 }

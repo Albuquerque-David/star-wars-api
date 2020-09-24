@@ -1,14 +1,14 @@
 const express = require('express');
-const PlanetService = require('./api/services/PlanetService');
+const PlanetController = require('./api/controllers/PlanetController');
 const Planet = require('./api/models/Planet');
 
 const routes = express.Router();
 
 routes.get('/');
-routes.get('/planet', PlanetService.read);
-routes.get('/planet/:_id', PlanetService.readById);
-routes.post('/planet', PlanetService.create);
-routes.put('/planet/:_id', PlanetService.update);
-routes.delete('/planet/:_id', PlanetService.delete);
+routes.get('/planet', PlanetController.readAllPlanets);
+routes.get('/planet/:_id', PlanetController.readPlanetById);
+routes.post('/planet', PlanetController.createPlanet);
+routes.put('/planet/:_id', PlanetController.updatePlanet);
+routes.delete('/planet/:_id', PlanetController.deletePlanet);
 
 module.exports = routes;
