@@ -10,7 +10,7 @@ var PlanetCounter = mongoose.model('PlanetCounter', PlanetCounterSchema);
 module.exports = {
     async create(request, response)
     {
-        var { name, weather, terrain } = request.body
+        var { name, climate, terrain } = request.body
         var _id = await getNextSequence("planet_id")
 
         const apiResponse = await getPlanetFilmsByName(name)
@@ -22,7 +22,7 @@ module.exports = {
         else
             var films = []
 
-        var newPlanet = new Planet({_id,name,weather,terrain,films})
+        var newPlanet = new Planet({_id,name,climate,terrain,films})
         newPlanet.save((error) => {
             if(error)
                 return console.log(error)
@@ -37,10 +37,6 @@ module.exports = {
 
         if(name != undefined)
             filter = {'name': name}
-        
-        console.log(name)
-        console.log(filter)
-
 
         Planet.find(filter).exec((error, result) => {
             if(error)
@@ -65,10 +61,10 @@ module.exports = {
     async update(request, response)
     {
         var { _id } = request.params
-        var { name, weather, terrain } = request.body
+        var { name, climate, terrain } = request.body
 
         const filter = { '_id': _id }
-        const update = { name , weather, terrain}
+        const update = { name , climate, terrain}
 
         Planet.findOneAndUpdate(filter,update, {new: true}).exec((error, result) =>
         {
