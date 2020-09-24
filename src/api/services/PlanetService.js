@@ -1,5 +1,6 @@
 
 const mongoose = require('mongoose')
+const axios = require('axios');
 const PlanetSchema = require('../models/Planet');
 const PlanetCounterSchema = require('../models/PlanetCounter');
 var Planet = mongoose.model('Planet', PlanetSchema);
@@ -11,8 +12,17 @@ module.exports = {
     {
         var { name, weather, terrain } = request.body
         var _id = await getNextSequence("planet_id")
-        console.log("SOU O ID: " + _id)
-        var newPlanet = new Planet({_id,name,weather,terrain})
+
+        const apiResponse = await getPlanetFilmsByName(name)
+        if(apiResponse.data.results[0] != undefined)
+        {
+            let apiFilms = apiResponse.data.results[0].films
+            var films = await getFilms(apiFilms)
+        }
+        else
+            var films = []
+
+        var newPlanet = new Planet({_id,name,weather,terrain,films})
         newPlanet.save((error) => {
             if(error)
                 return console.log(error)
@@ -92,6 +102,32 @@ async function getNextSequence(sequence_name) {
     })
     
     return await promise;
+ }
+
+ async function getPlanetFilmsByName(name)
+ {
+    return await axios.get('https://swapi.dev/api/planets/?search=' + name)
+ }
+
+ async function getFilm(film)
+ {
+    return await axios.get(film)
+ }
+
+ async function getFilms(films) 
+ {
+    let filmsData = []
+
+    if(films === undefined || films === null)
+        return filmsData
+
+    for await (let film of films)
+    {
+        let filmData = await getFilm(film)
+        filmsData.push(filmData.data.title)
+    }
+
+    return filmsData
  }
  
 
