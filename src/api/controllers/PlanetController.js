@@ -8,6 +8,11 @@ module.exports = {
     {
     
     },
+    
+    async readPlanetByName(name)
+    {
+
+    },
 
     async readPlanetById(id)
     {
@@ -22,10 +27,5 @@ module.exports = {
     async deletePlanetById(id)
     {
         
-    },
-
-    async searchPlanetByName(name)
-    {
-
     },
 }
